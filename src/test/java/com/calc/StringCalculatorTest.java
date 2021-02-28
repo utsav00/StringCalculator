@@ -108,4 +108,13 @@ class StringCalculatorTest {
         assertEquals(9, calc.add("//[%%][##]\n1##5%%3"));
         assertEquals(11, calc.add("//[%%][###][@@]\n1###5%%3@@2"));
     }
+
+    @Test
+    void testExceptionThrownWhenMultipleLineInvalidInput() {
+        Exception exc;
+        exc = assertThrows(Exception.class, () -> calc.add("//[#]\n2#3\n4"));
+        assertEquals("Invalid Input", exc.getMessage());
+        exc = assertThrows(Exception.class, () -> calc.add("//[#]\n2#3\n4\n5\n6#7"));
+        assertEquals("Invalid Input", exc.getMessage());
+    }
 }
