@@ -1,6 +1,7 @@
 package com.calc;
 
-import java.nio.file.LinkPermission;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringCalculator {
     public int add(String numbers) {
@@ -21,11 +22,19 @@ public class StringCalculator {
         if (numbers.isBlank())
             return sum;
         String[] numbersSeparated = numbers.split(delimiter);
+        List<Integer> negativeNumbers = new ArrayList<>();
         for (String num: numbersSeparated) {
             int n = Integer.parseInt(num);
-            if (n<0) throw new RuntimeException("Negatives not allowed");
-            sum += Integer.parseInt(num);
+            if (n<0) {
+                negativeNumbers.add(n);
+                continue;
+            }
+            sum += n;
         }
+
+        if (negativeNumbers.size() > 0)
+            throw new RuntimeException("Negatives not allowed " + negativeNumbers.toString());
+        
         return  sum;
     }
 }

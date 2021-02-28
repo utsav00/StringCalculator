@@ -52,12 +52,18 @@ class StringCalculatorTest {
     @Test
     void testExceptionThrownOnNegativeInput() {
         Exception exc = assertThrows(Exception.class, () -> calc.add("2,-3"));
-        assertEquals("Negatives not allowed", exc.getMessage());
+        assertEquals("Negatives not allowed [-3]", exc.getMessage());
     }
 
     @Test
     void testExceptionThrownOnNegativeInputWithDelimiter() {
         Exception exc = assertThrows(Exception.class, () -> calc.add("//#\n2#-3"));
-        assertEquals("Negatives not allowed", exc.getMessage());
+        assertEquals("Negatives not allowed [-3]", exc.getMessage());
+    }
+
+    @Test
+    void testExceptionThrownOnMultipleNegativeInput() {
+        Exception exc = assertThrows(Exception.class, () -> calc.add("//#\n-2#-3"));
+        assertEquals("Negatives not allowed [-2, -3]", exc.getMessage());
     }
 }
