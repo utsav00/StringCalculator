@@ -42,4 +42,10 @@ class StringCalculatorTest {
     void testMultipleInputNumbersWithNewLine() {
         assertEquals(2+5+6+34+83+42, calc.add("2,5,6\n34,83\n42"));
     }
+
+    @Test
+    void testCustomDelimiter() {
+        assertEquals(9, calc.add("//-\n2-3-4"));
+        assertEquals(9, calc.add("//;\n2;3;4"));
+    }
 }

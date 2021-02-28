@@ -8,7 +8,9 @@ public class StringCalculator {
         String delimiter = ",|[\n|(\r\n)]"; //Delimiters - Either ',' or '\n' or '\r\n'
         if (numbers.startsWith("//")) {
             String[] input = numbers.split("\n", 2);
-            delimiter = input[0];
+            if (input.length > 2)
+                throw new RuntimeException("Invalid Input");
+            delimiter = input[0].substring(2);
             nums = input[1];
         }
         return add(nums, delimiter);
@@ -19,7 +21,7 @@ public class StringCalculator {
         if (numbers.isBlank())
             return sum;
         String[] numbersSeparated = numbers.split(delimiter);
-        for (String num: numbersSeparated)
+            for (String num: numbersSeparated)
             sum += Integer.parseInt(num);
         return  sum;
     }
