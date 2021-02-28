@@ -21,8 +21,11 @@ public class StringCalculator {
         if (numbers.isBlank())
             return sum;
         String[] numbersSeparated = numbers.split(delimiter);
-            for (String num: numbersSeparated)
+        for (String num: numbersSeparated) {
+            int n = Integer.parseInt(num);
+            if (n<0) throw new RuntimeException("Negatives not allowed");
             sum += Integer.parseInt(num);
+        }
         return  sum;
     }
 }

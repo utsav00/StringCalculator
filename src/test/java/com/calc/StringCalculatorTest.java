@@ -48,4 +48,16 @@ class StringCalculatorTest {
         assertEquals(9, calc.add("//-\n2-3-4"));
         assertEquals(9, calc.add("//;\n2;3;4"));
     }
+
+    @Test
+    void testExceptionThrownOnNegativeInput() {
+        Exception exc = assertThrows(Exception.class, () -> calc.add("2,-3"));
+        assertEquals("Negatives not allowed", exc.getMessage());
+    }
+
+    @Test
+    void testExceptionThrownOnNegativeInputWithDelimiter() {
+        Exception exc = assertThrows(Exception.class, () -> calc.add("//#\n2#-3"));
+        assertEquals("Negatives not allowed", exc.getMessage());
+    }
 }
