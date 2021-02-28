@@ -72,13 +72,13 @@ class StringCalculatorTest {
 
     @Test
     void testExceptionThrownOnNegativeInputWithDelimiter() {
-        Exception exc = assertThrows(Exception.class, () -> calc.add("//#\n2#-3"));
+        Exception exc = assertThrows(Exception.class, () -> calc.add("//[#]\n2#-3"));
         assertEquals("Negatives not allowed [-3]", exc.getMessage());
     }
 
     @Test
     void testExceptionThrownOnMultipleNegativeInput() {
-        Exception exc = assertThrows(Exception.class, () -> calc.add("//#\n-2#-3"));
+        Exception exc = assertThrows(Exception.class, () -> calc.add("//[#]\n-2#-3"));
         assertEquals("Negatives not allowed [-2, -3]", exc.getMessage());
     }
 
@@ -87,5 +87,12 @@ class StringCalculatorTest {
         assertEquals(0, calc.add("1001"));
         assertEquals(3, calc.add("1001,3"));
         assertEquals(62, calc.add("1001,3,59,5679"));
+    }
+
+    @Test
+    void testCustomDelimiterWithAnyLength() {
+        assertEquals(9, calc.add("//[---]\n2---3---4"));
+        assertEquals(9, calc.add("//[;;]\n2;;3;;4"));
+        assertEquals(6, calc.add("//[**]\n1**2**3"));
     }
 }
