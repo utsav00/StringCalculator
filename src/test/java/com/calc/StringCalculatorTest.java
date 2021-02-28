@@ -32,4 +32,14 @@ class StringCalculatorTest {
     void testMultipleInputNumbers() {
         assertEquals(2+5+6+34+83+42, calc.add("2,5,6,34,83,42"));
     }
+
+    @Test
+    void testTwoInputNumbersWithNewLine() {
+        assertEquals(7, calc.add("3\n4"));
+    }
+
+    @Test
+    void testMultipleInputNumbersWithNewLine() {
+        assertEquals(2+5+6+34+83+42, calc.add("2,5,6\n34,83\n42"));
+    }
 }
