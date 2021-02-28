@@ -90,9 +90,16 @@ class StringCalculatorTest {
     }
 
     @Test
-    void testCustomDelimiterWithAnyLength() {
+    void testOneCustomDelimiterWithAnyLength() {
         assertEquals(9, calc.add("//[---]\n2---3---4"));
         assertEquals(9, calc.add("//[;;]\n2;;3;;4"));
         assertEquals(6, calc.add("//[**]\n1**2**3"));
+    }
+
+    @Test
+    void testMultipleDelimiters() {
+        assertEquals(9, calc.add("//[%][#]\n2%3#4"));
+        assertEquals(9, calc.add("//[-][@]\n2@3-4"));
+        assertEquals(15, calc.add("//[-][@][*]\n2@3-4*6"));
     }
 }
