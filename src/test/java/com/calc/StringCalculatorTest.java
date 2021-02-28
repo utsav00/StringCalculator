@@ -102,4 +102,10 @@ class StringCalculatorTest {
         assertEquals(9, calc.add("//[-][@]\n2@3-4"));
         assertEquals(15, calc.add("//[-][@][*]\n2@3-4*6"));
     }
+
+    @Test
+    void testMultipleDelimitersWithMultipleLength() {
+        assertEquals(9, calc.add("//[%%][##]\n1##5%%3"));
+        assertEquals(11, calc.add("//[%%][###][@@]\n1###5%%3@@2"));
+    }
 }
