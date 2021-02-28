@@ -14,6 +14,21 @@ class StringCalculatorTest {
     }
 
     @Test
+    void testCalledCountWhenNoMethodIsCalled() {
+        assertEquals(0, new StringCalculator().getCalledCount());
+    }
+
+    @Test
+    void testCalledCountWhenMethodIsCalledMultipleTimes() {
+        StringCalculator sc = new StringCalculator();
+        int n = 5;
+        for(int i=0; i<n; i++) {
+            int dump = sc.add(String.valueOf(i));
+        }
+        assertEquals(n, sc.getCalledCount());
+    }
+
+    @Test
     void testEmptyInput() {
         assertEquals(0, calc.add(""));
     }

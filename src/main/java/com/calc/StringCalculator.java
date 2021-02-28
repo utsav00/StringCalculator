@@ -4,7 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StringCalculator {
+    private static int calledCount;
+
+    public StringCalculator() {
+        calledCount = 0;
+    }
+
+    public int getCalledCount() {
+        return calledCount;
+    }
+
     public int add(String numbers) {
+        calledCount++;
         String nums = numbers;
         String delimiter = ",|[\n|(\r\n)]"; //Delimiters - Either ',' or '\n' or '\r\n'
         if (numbers.startsWith("//")) {
@@ -17,7 +28,7 @@ public class StringCalculator {
         return add(nums, delimiter);
     }
 
-    public int add(String numbers, String delimiter) {
+    private int add(String numbers, String delimiter) {
         int sum = 0;
         if (numbers.isBlank())
             return sum;
@@ -34,7 +45,7 @@ public class StringCalculator {
 
         if (negativeNumbers.size() > 0)
             throw new RuntimeException("Negatives not allowed " + negativeNumbers.toString());
-        
+
         return  sum;
     }
 }
