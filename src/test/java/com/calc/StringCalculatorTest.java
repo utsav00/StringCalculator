@@ -19,12 +19,17 @@ class StringCalculatorTest {
     }
 
     @Test
-    void testOneInput() {
+    void testOneInputNumber() {
         assertEquals(3, calc.add("3"));
     }
 
     @Test
-    void testTwoInputs() {
+    void testTwoInputNumbers() {
         assertEquals(3, calc.add("1,2"));
+    }
+
+    @Test
+    void testMultipleInputNumbers() {
+        assertEquals(2+5+6+34+83+42, calc.add("2,5,6,34,83,42"));
     }
 }
