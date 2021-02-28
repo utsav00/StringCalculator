@@ -81,4 +81,11 @@ class StringCalculatorTest {
         Exception exc = assertThrows(Exception.class, () -> calc.add("//#\n-2#-3"));
         assertEquals("Negatives not allowed [-2, -3]", exc.getMessage());
     }
+
+    @Test
+    void testNumbersGreaterThan1000() {
+        assertEquals(0, calc.add("1001"));
+        assertEquals(3, calc.add("1001,3"));
+        assertEquals(62, calc.add("1001,3,59,5679"));
+    }
 }

@@ -36,11 +36,10 @@ public class StringCalculator {
         List<Integer> negativeNumbers = new ArrayList<>();
         for (String num: numbersSeparated) {
             int n = Integer.parseInt(num);
-            if (n<0) {
+            if (n<0)
                 negativeNumbers.add(n);
-                continue;
-            }
-            sum += n;
+            else if (n <= 1000)
+                sum += n;
         }
 
         if (negativeNumbers.size() > 0)
