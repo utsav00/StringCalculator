@@ -39,9 +39,9 @@ public class StringCalculator {
         String[] numbersSeparated = numbers.split(getDelimiter(delimiters));
         List<Integer> negativeNumbers = new ArrayList<>();
 
-        for (String num: numbersSeparated) {
+        for (String num : numbersSeparated) {
             int n = Integer.parseInt(num);
-            if (n<0)
+            if (n < 0)
                 negativeNumbers.add(n);
             else if (n <= 1000)
                 sum += n;
@@ -50,7 +50,7 @@ public class StringCalculator {
         if (negativeNumbers.size() > 0)
             throw new RuntimeException("Negatives not allowed " + negativeNumbers.toString());
 
-        return  sum;
+        return sum;
     }
 
     private String getDelimiter(String delimiters) {
@@ -65,7 +65,7 @@ public class StringCalculator {
         String[] delimitersList = delimiters.split("]");
         String delim = "";
 
-        for(String d: delimitersList) {
+        for (String d : delimitersList) {
             delim = delim + d.substring(d.indexOf("[") + 1) + "|";
         }
         return delim.substring(0, delim.length() - 1);

@@ -1,12 +1,14 @@
 package com.calc;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StringCalculatorTest {
     private StringCalculator calc;
 
@@ -16,120 +18,103 @@ class StringCalculatorTest {
     }
 
     @Test
-    @DisplayName("GetCalledCount when the method Add was never called")
-    void testCalledCountWhenNoMethodIsCalled() {
+    void test_called_count_when_no_method_is_called() {
         assertEquals(0, new StringCalculator().getCalledCount());
     }
 
     @Test
-    @DisplayName("GetCalledCount when the method Add is called multiple times")
-    void testCalledCountWhenMethodIsCalledMultipleTimes() {
+    void called_count_when_method_is_called_multiple_times() {
         StringCalculator sc = new StringCalculator();
         int n = 5;
-        for(int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             int dump = sc.add(String.valueOf(i));
         }
         assertEquals(n, sc.getCalledCount());
     }
 
     @Test
-    @DisplayName("Test Empty Input")
-    void testEmptyInput() {
+    void empty_input() {
         assertEquals(0, calc.add(""));
     }
 
     @Test
-    @DisplayName("Test Add with One Input Method")
-    void testOneInputNumber() {
+    void one_input_number() {
         assertEquals(3, calc.add("3"));
     }
 
     @Test
-    @DisplayName("Test Add with Two Input Numbers")
-    void testTwoInputNumbers() {
+    void two_input_numbers() {
         assertEquals(3, calc.add("1,2"));
     }
 
     @Test
-    @DisplayName("Test Add with Multiple Input Numbers")
-    void testMultipleInputNumbers() {
-        assertEquals(2+5+6+34+83+42, calc.add("2,5,6,34,83,42"));
+    void multiple_input_numbers() {
+        assertEquals(2 + 5 + 6 + 34 + 83 + 42, calc.add("2,5,6,34,83,42"));
     }
 
     @Test
-    @DisplayName("Test Add with Two Input Numbers with a New Line as a separator")
-    void testTwoInputNumbersWithNewLine() {
+    void two_input_numbers_with_new_line() {
         assertEquals(7, calc.add("3\n4"));
     }
 
     @Test
-    @DisplayName("Test Add with Two Input Numbers with a New Line and comma as separator")
-    void testMultipleInputNumbersWithNewLine() {
-        assertEquals(2+5+6+34+83+42, calc.add("2,5,6\n34,83\n42"));
+    void multiple_input_numbers_with_new_line() {
+        assertEquals(2 + 5 + 6 + 34 + 83 + 42, calc.add("2,5,6\n34,83\n42"));
     }
 
     @Test
-    @DisplayName("Test using custom delimiters")
-    void testCustomDelimiter() {
+    void custom_delimiter() {
         assertEquals(9, calc.add("//-\n2-3-4"));
         assertEquals(9, calc.add("//;\n2;3;4"));
     }
 
     @Test
-    @DisplayName("Test Exception when passing single negative Input")
-    void testExceptionThrownOnNegativeInput() {
+    void exception_thrown_on_negative_input() {
         Exception exc = assertThrows(Exception.class, () -> calc.add("2,-3"));
         assertEquals("Negatives not allowed [-3]", exc.getMessage());
     }
 
     @Test
-    @DisplayName("Test Exception when passing negative Input with custom delimiter")
-    void testExceptionThrownOnNegativeInputWithDelimiter() {
+    void exception_thrown_on_negative_input_with_delimiter() {
         Exception exc = assertThrows(Exception.class, () -> calc.add("//[#]\n2#-3"));
         assertEquals("Negatives not allowed [-3]", exc.getMessage());
     }
 
     @Test
-    @DisplayName("Test Exception when passing multiple negative Input")
-    void testExceptionThrownOnMultipleNegativeInput() {
+    void exception_thrown_on_multiple_negative_input() {
         Exception exc = assertThrows(Exception.class, () -> calc.add("//[#]\n-2#-3"));
         assertEquals("Negatives not allowed [-2, -3]", exc.getMessage());
     }
 
     @Test
-    @DisplayName("Test for ignoring input greater than 1000")
-    void testNumbersGreaterThan1000() {
+    void numbers_greater_than_1000() {
         assertEquals(0, calc.add("1001"));
         assertEquals(3, calc.add("1001,3"));
         assertEquals(62, calc.add("1001,3,59,5679"));
     }
 
     @Test
-    @DisplayName("Test single custom delimiter with any length")
-    void testOneCustomDelimiterWithAnyLength() {
+    void one_custom_delimiter_with_any_length() {
         assertEquals(9, calc.add("//[---]\n2---3---4"));
         assertEquals(9, calc.add("//[;;]\n2;;3;;4"));
         assertEquals(6, calc.add("//[**]\n1**2**3"));
     }
 
     @Test
-    @DisplayName("Test multiple custom delimiters with singular length")
-    void testMultipleDelimiters() {
+    void multiple_delimiters() {
         assertEquals(9, calc.add("//[%][#]\n2%3#4"));
         assertEquals(9, calc.add("//[-][@]\n2@3-4"));
         assertEquals(15, calc.add("//[-][@][*]\n2@3-4*6"));
     }
 
     @Test
-    @DisplayName("Test multiple custom delimiter with multiple length")
-    void testMultipleDelimitersWithMultipleLength() {
+    void multiple_delimiters_with_multiple_length() {
         assertEquals(9, calc.add("//[%%][##]\n1##5%%3"));
         assertEquals(11, calc.add("//[%%][###][@@]\n1###5%%3@@2"));
     }
 
     @Test
-    @DisplayName("Test exception when the line contains multiple new lines as separators with custom delimiter/s")
-    void testExceptionThrownWhenMultipleLineInvalidInput() {
+    void exception_thrown_when_multiple_line_invalid_input() {
         Exception exc;
         exc = assertThrows(Exception.class, () -> calc.add("//[#]\n2#3\n4"));
         assertEquals("Invalid Input", exc.getMessage());
